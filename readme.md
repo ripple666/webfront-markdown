@@ -15,14 +15,19 @@
 
 
 ## JavaScript必备知识点
-- 原始（Primitive）类型
-- 对象（Object）类型
-- 类型转换
-- 四则运算符
-- this 
-- 
+- 内置类型
+	- 原始（Primitive）类型
+	- 对象（Object）类型
+	- 类型转换
+	- 四则运算符
+- 原型以及原项链
+- new
+- this
+- instanceof
+- 执行上下文
 
 
+### 内置类型
 #### 原始（Primitive）类型
 - js有6种原始类型，boolean，null，undefined，number，string，symbol
 - NaN 也属于 number 类型，并且 NaN 不等于自身
@@ -140,7 +145,41 @@ let a = {
 true + true // 2
 ```
 
-#### this
+### 原型以及原项链
+- 每个函数都有 prototype 属性，除了 Function.prototype.bind()，该属性指向原型。
+- 每个对象都有 __proto__ 属性，指向了创建该对象的构造函数的原型。其实这个属性指向了 [[prototype]]，但是 [[prototype]] 是内部属性，我们并不能访问到，所以使用 _proto_ 来访问。
+- 对象可以通过 __proto__ 来寻找不属于该对象的属性，__proto__ 将对象连接起来组成了原型链。
+- Object,Function,Array,Date,RegExp都是函数，Function.prototype是个函数属性存储了 Function 的原型对象。
+![foo.__proto__ === Object.__proto === Function.prototype](https://i.imgur.com/TXzRpWV.png '')
+
+### new
+- 使用new创建函数是创建在堆中的，必须要程序员手动的去管理该对象的内存空间，生成一个新的对象。Object,Array,RegExp,Date都是函数。
+- 普通定义的对象的内存空间是在栈中的，其作用范围只是在函数内部，函数执行完成后就会调用析构函数，删除该对象，
+- new一个函数一般会经历4个过程：
+	- new Object()
+	- __proto__ = Fun.prototype
+	- apply(Obj)绑定this，让新对象拥有
+	- 将对象返回出去
+```js
+function create() {
+    // 创建一个空的对象
+    let obj = new Object()
+    // 获得构造函数
+    let Con = [].shift.call(arguments)
+    // 链接到原型
+    obj.__proto__ = Con.prototype
+    // 绑定 this，执行实例的时候其实在执行构造函数
+    let result = Con.apply(obj, arguments) 
+    // 确保 new 出来的是个对象
+    return typeof result === 'object' ? result : obj
+}
+```
+
+### instanceof
+
+### 执行上下文
+
+### this
 
 - 对于直接调用 foo 来说，不管 foo 函数被放在了什么地方，this 一定是 window
 - 对于 obj.foo() 来说，我们只需要记住，谁调用了函数，谁就是 this，所以在这个场景下 foo 函数中的 this 就是 obj 对象
@@ -150,20 +189,15 @@ true + true // 2
 function foo() {
   console.log(this.a)
 }
-var a = 1
-foo()
+var a = 1 
+foo()//结果是1，a是window下的变量
 
 const obj = {
   a: 2,
   foo: foo
 }
-obj.foo()
+obj.foo() //结果是2，此时函数绑定了，this指向调用该函数的对象
 
-const c = new foo()
+const c = new foo() //结果是2
 ```
-
-
-
-
-
 
