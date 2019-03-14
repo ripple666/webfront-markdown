@@ -1,6 +1,9 @@
 # 前端笔记
 
 ***
+| 作者  | ripple |
+| :---:  | ------ |
+| E-mail | 651632406@qq.com |
 
 ## 简介
 
@@ -87,7 +90,7 @@ console.log(p2) // {name: "yyy", age: 30}
 
 #### 类型转换
 	
-- 如果我们想获得一个变量的正确类型，可以通过 Object.prototype.toString.call(xx)。这样我们就可以获得类似 [object Type] 的字符串。
+- 一般可以通过 Object.prototype.toString.call(xx)获取一个变量的正确类型。得到的结果为 [object Type] 的字符串。
 - 常见类型转换有三种：
 	- 转换为布尔值
 	- 转换为数字
