@@ -105,6 +105,27 @@ console.log(p2) // {name: "yyy", age: 30}
 | 除了空数组的引用类型，undefine  | 数字   | NaN |
 | ture | 数字   | 1 |
 
+- 对象在转换类型的时候，会调用内置的 [[ToPrimitive]] 函数,该函数的算法逻辑:
+	- 如果已经是原始类型了，那就不需要转换了
+	- 调用 x.valueOf()，如果转换为基础类型，就返回转换的值
+	- 调用 x.toString()，如果转换为基础类型，就返回转换的值
+	- 如果都没有返回原始类型，就会报错
+当然你也可以重写 Symbol.toPrimitive ，该方法在转原始类型时调用优先级最高。
+```js
+let a = {
+  valueOf() {
+    return 0
+  },
+  toString() {
+    return '1'
+  },
+  [Symbol.toPrimitive]() {
+    return 2
+  }
+}
+1 + a // => 3
+```
+
 #### 考点
 > - 原始类型有哪几种？null 是对象嘛？
 > - 对象类型和原始类型的不同之处？函数参数是对象会发生什么问题？
