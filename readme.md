@@ -15,9 +15,13 @@
 
 
 ## JavaScript必备知识点
-- 数据类型
+- 原始（Primitive）类型
+- 对象（Object）类型
+- 类型转换
+- 四则运算符
+- this 
+- 
 
-### 数据类型
 
 #### 原始（Primitive）类型
 - js有6种原始类型，boolean，null，undefined，number，string，symbol
@@ -136,9 +140,29 @@ let a = {
 true + true // 2
 ```
 
+#### this
+- 对于直接调用 foo 来说，不管 foo 函数被放在了什么地方，this 一定是 window
+- 对于 obj.foo() 来说，我们只需要记住，谁调用了函数，谁就是 this，所以在这个场景下 foo 函数中的 this 就是 obj 对象
+- 对于 new 的方式来说，this 被永远绑定在了 c 上面，不会被任何方式改变 this
+- 箭头函数其实是没有 this 的，箭头函数中的 this 只取决包裹箭头函数的第一个普通函数的 this。
+```js
+function foo() {
+  console.log(this.a)
+}
+var a = 1
+foo()
 
-#### 考点
-> - 原始类型有哪几种？null 是对象嘛？
-> - 对象类型和原始类型的不同之处？函数参数是对象会发生什么问题？
+const obj = {
+  a: 2,
+  foo: foo
+}
+obj.foo()
+
+const c = new foo()
+```
+
+
+
+
 
 
