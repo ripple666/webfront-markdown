@@ -1,7 +1,7 @@
 # 前端笔记
 
 ***
-| 作者  | ripple |
+| Author  | ripple |
 | :---:  | ------ |
 | E-mail | 651632406@qq.com |
 
