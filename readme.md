@@ -176,8 +176,67 @@ function create() {
 ```
 
 ### instanceof
-
+instanceof 可以正确的判断对象的类型，因为内部机制是通过判断对象的原型链中是不是能找到类型的 prototype,即left.__proto === right.prototype。
+```js
+function instanceof(left, right) {
+    // 获得类型的原型
+    let prototype = right.prototype
+    // 获得对象的原型
+    left = left.__proto__
+    // 判断对象的类型是否等于类型的原型
+    while (true) {
+    	if (left === null)
+    		return false
+    	if (prototype === left)
+    		return true
+    	left = left.__proto__
+    }
+}
+```
 ### 执行上下文
+-当执行 JS 代码时，会产生三种执行上下文
+	- 全局执行上下文
+	- 函数执行上下文
+	- eval 执行上下文
+- 每个执行上下文中都有三个重要的属性
+	- 变量对象,包含变量、函数声明和函数的形参
+	- 作用域链
+	- this
+```js
+var a = 10
+function foo(i) {
+  var b = 20
+}
+foo()
+```
+对于上述代码，执行栈中有两个上下文：全局上下文和函数 foo 上下文。
+```js
+stack = [
+    globalContext,
+    fooContext
+]
+```
+对于全局上下文来说，VO 大概是这样的
+```js
+globalContext.VO === globe
+globalContext.VO = {
+    a: undefined,
+	foo: <Function>,
+}
+```
+对于函数 foo 来说，VO 不能访问，只能访问到活动对象（AO）
+```js
+fooContext.VO === foo.AO
+fooContext.AO {
+    i: undefined,
+	b: undefined,
+    arguments: <>
+}
+// arguments 是函数独有的对象(箭头函数没有)
+// 该对象是一个伪数组，有 `length` 属性且可以通过下标访问元素
+// 该对象中的 `callee` 属性代表函数本身
+// `caller` 属性代表函数的调用者
+```
 
 ### this
 
