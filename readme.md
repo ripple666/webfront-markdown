@@ -35,7 +35,7 @@
 
 
 ### 内置类型
-#### 原始（Primitive）类型
+##### 原始（Primitive）类型
 - js有6种原始类型，boolean，null，undefined，number，string，symbol
 - NaN 也属于 number 类型，并且 NaN 不等于自身
 - null === null
@@ -51,7 +51,7 @@ typeof Symbol() // 'symbol'
 typeof null // 'object'
 ```
 
-#### 对象（Object）类型
+##### 对象（Object）类型
 - 原始类型存储的是值,对象类型存储的是地址（指针）。当你创建了一个对象类型的时候，计算机会在内存中帮我们开辟一个空间来存放值
 - typeof 对于对象来说，除了函数都会显示 object
 ```js
@@ -104,7 +104,7 @@ console.log(p1) // {name: "yck", age: 26}
 console.log(p2) // {name: "yyy", age: 30}
 ```
 
-#### 类型转换
+##### 类型转换
 	
 - 一般可以通过 Object.prototype.toString.call(xx)获取一个变量的正确类型。得到的结果为 [object Type] 的字符串。
 - 常见类型转换有三种：
@@ -142,7 +142,7 @@ let a = {
 1 + a // => 3
 ```
 
-#### 四则运算符
+##### 四则运算符
 - 只有当加法运算时，其中一方是字符串类型，就会把另一个也转为字符串类型,然后做字符串拼接。
 - 其他运算（*、/、-、%）只要其中一方是数字，那么另一方就转为数字。
 ```js
@@ -279,8 +279,8 @@ function A() {
 }
 ```
 ### 深浅拷贝
-#### 深拷贝
-#### 浅拷贝
+##### 深拷贝
+##### 浅拷贝
 ### 模块化
 ### 防抖
 ### 节流
