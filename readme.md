@@ -1,23 +1,16 @@
 # 前端笔记
-
 ***
 | Author  | ripple |
 | :---:  | ------ |
 | E-mail | 651632406@qq.com |
 
 ## 简介
-
 该文件用来记录前端一些基本的知识和用法，包括CSS、js的基本语法，npm,nodejs,webpack，canvas，svg,vue，react,等等一系列的相关知识点
-
-
-
-
-
 
 ## JavaScript必备知识点
 - [内置类型](#内置类型)
-	- [原始（Primitive）类型](#原始（Primitive）类型)
-	- [对象（Object）类型](#对象（Object）类型)
+	- [原始类型](#原始类型)
+	- [对象类型](#对象类型)
 	- [类型转换](#类型转换)
 	- [四则运算符](#四则运算符)
 - [原型以及原项链](#原型以及原项链)
@@ -35,7 +28,7 @@
 
 
 ### 内置类型
-##### 原始（Primitive）类型
+##### 原始类型
 - js有6种原始类型，boolean，null，undefined，number，string，symbol
 - NaN 也属于 number 类型，并且 NaN 不等于自身
 - null === null
@@ -51,7 +44,7 @@ typeof Symbol() // 'symbol'
 typeof null // 'object'
 ```
 
-##### 对象（Object）类型
+##### 对象类型
 - 原始类型存储的是值,对象类型存储的是地址（指针）。当你创建了一个对象类型的时候，计算机会在内存中帮我们开辟一个空间来存放值
 - typeof 对于对象来说，除了函数都会显示 object
 ```js
