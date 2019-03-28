@@ -32,7 +32,10 @@ HTTP/1.1想出了持久连接（HTTP keep-alive）方法。其特点是，只要
 ### HTTP请求和响应步骤
 HTTP协议工作于客户端-服务端架构上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求，HTTP协议就是基于TCP/IP协议模型来传输信息的。Web服务器根据接收到的请求后，向客户端发送响应信息。Web服务器有：Apache服务，nginx服务,nodejs服务等。
 
+
 ![](https://i.imgur.com/Lk5oMAN.png)
+
+
 
 ## TCP/IP协议
 TCP/IP协议模型（Transmission Control Protocol/Internet Protocol），包含了一系列构成互联网基础的网络协议，是Internet的核心协议，通过20多年的发展已日渐成熟，并被广泛应用于局域网和广域网中，目前已成为事实上的国际标准。TCP/IP协议簇是一组不同层次上的多个协议的组合，通常被认为是一个四层协议系统。
@@ -178,49 +181,49 @@ HTTP响应报文主要由状态行、响应头部、空行以及响应数据组�
 下面是一个响应报文的实例：
 
 >HTTP/1.1 200 OK　　状态行
-
+>
 >
 >Date: Sun, 17 Mar 2013 08:12:54 GMT　　响应头部
-
+>
 >Server: Apache/2.2.8 (Win32) PHP/5.2.5
-
+>
 >X-Powered-By: PHP/5.2.5
-
+>
 >Set-Cookie: PHPSESSID=c0huq7pdkmm5gg6osoe3mgjmm3; path=/
-
+>
 >Expires: Thu, 19 Nov 1981 08:52:00 GMT
-
+>
 >Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-
 >check=0
-
->Pragma: no-cache
-
->Content-Length: 4393
-
->Keep-Alive: timeout=5, max=100
-
->Connection: Keep-Alive
-
->Content-Type: text/html; charset=utf-8
-
->　　空行
-
 >
-
+>Pragma: no-cache
+>
+>Content-Length: 4393
+>
+>Keep-Alive: timeout=5, max=100
+>
+>Connection: Keep-Alive
+>
+>Content-Type: text/html; charset=utf-8
+>
+>　　空行
+>
+>
+>
 > &lt; html>　响应数据
-
+>
 > &nbsp;&nbsp;&nbsp;&nbsp; &lt; head>
-
+>
 > &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;HTTP响应示例&lt;title>
-
+>
 > &nbsp;&nbsp;&nbsp;&nbsp; &lt;/head&gt;
-
+>
 >&nbsp;&nbsp;&nbsp;&nbsp; &lt;body&gt;
-
+>
 >&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Hello HTTP!
-
+>
 >&nbsp;&nbsp;&nbsp;&nbsp; &lt;/body&gt;
-
+>
 >&lt;/html&gt;
 
 
@@ -238,7 +241,7 @@ HTTP响应报文主要由状态行、响应头部、空行以及响应数据组�
 
 - 第四次分手：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。
 
-**为什么要四次分手***
+**为什么要四次分手**
 
 TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。
 
