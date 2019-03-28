@@ -31,17 +31,19 @@ HTTP/1.1想出了持久连接（HTTP keep-alive）方法。其特点是，只要
 
 ### HTTP请求和响应步骤
 HTTP协议工作于客户端-服务端架构上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求，HTTP协议就是基于TCP/IP协议模型来传输信息的。Web服务器根据接收到的请求后，向客户端发送响应信息。Web服务器有：Apache服务，nginx服务,nodejs服务等。
+
 ![](https://i.imgur.com/Lk5oMAN.png)
 
 ## TCP/IP协议
 TCP/IP协议模型（Transmission Control Protocol/Internet Protocol），包含了一系列构成互联网基础的网络协议，是Internet的核心协议，通过20多年的发展已日渐成熟，并被广泛应用于局域网和广域网中，目前已成为事实上的国际标准。TCP/IP协议簇是一组不同层次上的多个协议的组合，通常被认为是一个四层协议系统。
+
 ![](https://i.imgur.com/nI07Y0g.png)
 
-### (1). 链路层
+####  链路层
 
 也称作数据链路层或网络接口层（在第一个图中为网络接口层和硬件层），通常包括操作系统中的设备驱动程序和计算机中对应的网络接口卡。它们一起处理与电缆（或其他任何传输媒介）的物理接口细节。ARP（地址解析协议）和RARP（逆地址解析协议）是某些网络接口（如以太网和令牌环网）使用的特殊协议，用来转换IP层和网络接口层使用的地址。
 
-### (2). 网络层
+####  网络层
 
 也称作互联网层（在第一个图中为网际层），处理分组在网络中的活动，例如分组的选路。在TCP/IP协议族中，网络层协议包括IP协议（网际协议），ICMP协议（Internet互联网控制报文协议），以及IGMP协议（Internet组管理协议）。
 
@@ -51,19 +53,21 @@ ICMP是IP协议的附属协议。IP层用它来与其他主机或路由器交换
 
 IGMP是Internet组管理协议。它用来把一个UDP数据报多播到多个主机。
 
-### (3). 传输层
+####  传输层
 主要为两台主机上的应用程序提供端到端的通信。在TCP/IP协议族中，有两个互不相同的传输协议：TCP（传输控制协议）和UDP（用户数据报协议）。
 
 TCP为两台主机提供高可靠性的数据通信。它所做的工作包括把应用程序交给它的数据分成合适的小块交给下面的网络层，确认接收到的分组，设置发送最后确认分组的超时时钟等。由于运输层提供了高可靠性的端到端的通信，因此应用层可以忽略所有这些细节。为了提供可靠的服务，TCP采用了超时重传、发送和接收端到端的确认分组等机制。
 
 UDP则为应用层提供一种非常简单的服务。它只是把称作数据报的分组从一台主机发送到另一台主机，但并不保证该数据报能到达另一端。一个数据报是指从发送方传输到接收方的一个信息单元（例如，发送方指定的一定字节数的信息）。UDP协议任何必需的可靠性必须由应用层来提供。
-### (4). 应用层
+####  应用层
 
 应用层决定了向用户提供应用服务时通信的活动。TCP/IP 协议族内预存了各类通用的应用服务。包括 HTTP，FTP（File Transfer Protocol，文件传输协议），DNS（Domain Name System，域名系统）服务。
 
 ### TCP三次握手
 TCP是面向连接的，无论哪一方向另一方发送数据之前，都必须先在双方之间建立一条连接。在TCP/IP协议中，TCP协议提供可靠的连接服务，连接是通过三次握手进行初始化的。三次握手的目的是同步连接双方的序列号和确认号并交换 TCP窗口大小信息。
+
 ![](https://i.imgur.com/rFj3FYB.png)
+
 
 - 第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认；
 
@@ -75,7 +79,7 @@ TCP是面向连接的，无论哪一方向另一方发送数据之前，都必�
 
 为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。
 
-***具体例子：***“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”
+***具体例子***： “已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”
 
 
 ## HTTP报文
@@ -115,14 +119,126 @@ HTTP报文是面向文本的，报文中的每一个字段都是一些ASCII码�
 下面是一个POST方法的请求报文：
 >
 >POST 　/index.php　HTTP/1.1 　　 请求行
+>
 >Host: localhost
+>
 >User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 >Firefox/10.0.2　　请求头
+>
 >Accept: text/html,application/xhtml+xml,application/xml;q=0.9,/;q=0.8
+>
 >Accept-Language: zh-cn,zh;q=0.5
+>
 >Accept-Encoding: gzip, deflate
+>
 >Connection: keep-alive
+>
 >Referer: http://localhost/
+>
 >Content-Length：25
+>
 >Content-Type：application/x-www-form-urlencoded
->　　空行
+>
+>空行
+>　　
+>
 >username=aa&password=1234　　请求数据
+
+### HTTP响应报文
+HTTP响应报文主要由状态行、响应头部、空行以及响应数据组成。
+
+![](https://i.imgur.com/dCZszN4.png)
+
+#### 状态行
+
+由3部分组成，分别为：协议版本，状态码，状态码描述。
+
+- 协议版本与请求报文一致，状态码描述是对状态码的简单描述，所以这里就只介绍状态码。
+- 状态码
+	- 状态代码为3位数字。
+	- 1xx：指示信息--表示请求已接收，继续处理。
+	- 2xx：成功--表示请求已被成功接收、理解、接受。
+	- 3xx：重定向--要完成请求必须进行更进一步的操作。
+	- 4xx：客户端错误--请求有语法错误或请求无法实现。
+	- 5xx：服务器端错误--服务器未能实现合法的请求。
+	
+下面列举几个常见的：
+
+![](https://i.imgur.com/jlS5iDd.png)
+
+#### 响应头部
+与请求头部类似，为响应报文添加了一些附加信息
+
+常见响应头部如下：
+
+![](https://i.imgur.com/lN0bnr6.png)
+
+#### 响应数据 
+用于存放需要返回给客户端的数据信息。
+
+下面是一个响应报文的实例：
+
+>HTTP/1.1 200 OK　　状态行
+
+>
+>Date: Sun, 17 Mar 2013 08:12:54 GMT　　响应头部
+
+>Server: Apache/2.2.8 (Win32) PHP/5.2.5
+
+>X-Powered-By: PHP/5.2.5
+
+>Set-Cookie: PHPSESSID=c0huq7pdkmm5gg6osoe3mgjmm3; path=/
+
+>Expires: Thu, 19 Nov 1981 08:52:00 GMT
+
+>Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-
+>check=0
+
+>Pragma: no-cache
+
+>Content-Length: 4393
+
+>Keep-Alive: timeout=5, max=100
+
+>Connection: Keep-Alive
+
+>Content-Type: text/html; charset=utf-8
+
+>　　空行
+
+>
+
+> &lt; html>　响应数据
+
+> &nbsp;&nbsp;&nbsp;&nbsp; &lt; head>
+
+> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;HTTP响应示例&lt;title>
+
+> &nbsp;&nbsp;&nbsp;&nbsp; &lt;/head&gt;
+
+>&nbsp;&nbsp;&nbsp;&nbsp; &lt;body&gt;
+
+>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Hello HTTP!
+
+>&nbsp;&nbsp;&nbsp;&nbsp; &lt;/body&gt;
+
+>&lt;/html&gt;
+
+
+## TCP四次挥手
+当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的啊。那对于TCP的断开连接，这里就有了神秘的“四次分手”。
+
+![](https://i.imgur.com/DokxRTe.png)
+
+
+- 第一次分手：主机1（可以使客户端，也可以是服务器端），设置Sequence Number，向主机2发送一个FIN报文段；此时，主机1进入FIN_WAIT_1状态；这表示主机1没有数据要发送给主机2了；
+
+- 第二次分手：主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，Acknowledgment Number为Sequence Number加1；主机1进入FIN_WAIT_2状态；主机2告诉主机1，我“同意”你的关闭请求；
+
+- 第三次分手：主机2向主机1发送FIN报文段，请求关闭连接，同时主机2进入LAST_ACK状态；
+
+- 第四次分手：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。
+
+**为什么要四次分手***
+
+TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。
+
