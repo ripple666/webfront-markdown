@@ -35,13 +35,13 @@ f1(f2);
 ##### 事件监听
 ```js
 
-function f1(callback){
-    setTimeout(function(){
-        //f1的任务代码
-        callback();
-    },1000);
+f1.on('done', f2);
+function f1(){
+　　　　setTimeout(function () {
+　　　　　　// f1的任务代码
+　　　　　　f1.trigger('done');
+　　　　}, 1000);
 }
-f1(f2);
 
 ```
 
